@@ -1,12 +1,12 @@
 #!/bin/bash
 
 function egress {
-	satellites=$(curl -s 127.0.0.1:14002/api/dashboard | jq -r ".data.satellites[].id")
+	satellites=$(curl -s 127.0.0.1:14002/api/dashboard | jq -r ".data.satellites[]?.id")
 	
 	egress_usage=0
 	for satellite in $satellites
 	do
-		bandwidth_days=$(curl -s 127.0.0.1:14002/api/satellite/$satellite | jq ".data.bandwidthDaily[].egress.usage")
+		bandwidth_days=$(curl -s 127.0.0.1:14002/api/satellite/$satellite | jq ".data.bandwidthDaily[]?.egress.usage")
 	
 		for bandwidthDaily in $bandwidth_days
 		do
@@ -18,12 +18,12 @@ function egress {
 }
 
 function ingress {
-	satellites=$(curl -s 127.0.0.1:14002/api/dashboard | jq -r ".data.satellites[].id")
+	satellites=$(curl -s 127.0.0.1:14002/api/dashboard | jq -r ".data.satellites[]?.id")
 
 	ingress_usage=0
 	for satellite in $satellites
 	do
-		bandwidth_days=$(curl -s 127.0.0.1:14002/api/satellite/$satellite | jq ".data.bandwidthDaily[].ingress.usage")
+		bandwidth_days=$(curl -s 127.0.0.1:14002/api/satellite/$satellite | jq ".data.bandwidthDaily[]?.ingress.usage")
 	
 		for bandwidthDaily in $bandwidth_days
 		do
