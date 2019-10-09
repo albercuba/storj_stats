@@ -6,9 +6,9 @@ The Script is called using `storj_stats.sh <stat>`. It can show you the followin
 
 stat | unit
 --- | ---
-egress | bytes
-ingress | bytes
-disk | gigabyte
+egress | byte
+ingress | byte
+disk | byte
 upToDate | 0/1
 
 If you want additional stats like `egress today`, the script is very easily extensible. Alternatively, you could contact me ;)
