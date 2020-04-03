@@ -1,3 +1,5 @@
+**BROKEN!**
+
 # storj_stats
 A bash script to access your Storj Stats using the dashboard API.
 
