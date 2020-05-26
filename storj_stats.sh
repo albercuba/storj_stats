@@ -1,12 +1,12 @@
 #!/bin/bash
 
 function egress {
-	satellites=$(curl -s 127.0.0.1:14002/api/dashboard | jq -r ".data.satellites[]?.id")
+	satellites=$(curl -s 127.0.0.1:14002/api/sno/ | jq -r ".satellites[]?.id")
 	
 	egress_usage=0
 	for satellite in $satellites
 	do
-		bandwidth_days=$(curl -s 127.0.0.1:14002/api/satellite/$satellite | jq ".data.bandwidthDaily[]?.egress.usage")
+		bandwidth_days=$(curl -s 127.0.0.1:14002/api/sno/satellite/$satellite | jq ".bandwidthDaily[]?.egress.usage")
 	
 		for bandwidthDaily in $bandwidth_days
 		do
@@ -18,12 +18,12 @@ function egress {
 }
 
 function ingress {
-	satellites=$(curl -s 127.0.0.1:14002/api/dashboard | jq -r ".data.satellites[]?.id")
+	satellites=$(curl -s 127.0.0.1:14002/api/sno/ | jq -r ".satellites[]?.id")
 
 	ingress_usage=0
 	for satellite in $satellites
 	do
-		bandwidth_days=$(curl -s 127.0.0.1:14002/api/satellite/$satellite | jq ".data.bandwidthDaily[]?.ingress.usage")
+		bandwidth_days=$(curl -s 127.0.0.1:14002/api/sno/satellite/$satellite | jq ".bandwidthDaily[]?.ingress.usage")
 	
 		for bandwidthDaily in $bandwidth_days
 		do
@@ -35,11 +35,11 @@ function ingress {
 }
 
 function diskSpace_used {
-	curl -s 127.0.0.1:14002/api/dashboard | jq ".data.diskSpace.used"
+	curl -s 127.0.0.1:14002/api/sno/ | jq ".diskSpace.used"
 }
 
 function upToDate {
-	upToDate_string=$(curl -s 127.0.0.1:14002/api/dashboard | jq ".data.upToDate")
+	upToDate_string=$(curl -s 127.0.0.1:14002/api/sno/ | jq ".upToDate")
 	
 	if [ $upToDate_string == "true" ]; then echo "1"; else echo "0"; fi
 }
